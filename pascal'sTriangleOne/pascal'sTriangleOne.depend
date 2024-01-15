@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1700908850 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\pascal'striangleone\main.cpp
+	<iostream>
+	<vector>
+	<unordered_map>
+

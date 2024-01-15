@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1686336882 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\longestcommonprefix\main.cpp
+	<iostream>
+	<vector>
+	<string>
+

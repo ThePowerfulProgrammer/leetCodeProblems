@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1701024513 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\pow\main.cpp
+	<iostream>
+	<iomanip>
+	<cmath>
+

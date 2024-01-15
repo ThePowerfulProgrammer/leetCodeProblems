@@ -1,0 +1,50 @@
+SD describes in detail the system that solves the need, how the system will work
+
+The system that will solve the need will be a function.
+The function will return a vector containing all elements that satisfy the problem.
+The function will be written in c++, using vectors and k as input and output, while a map called dictionary will be used to store key:value pairs.
+The key will be the first occurence of every element in the INPUT VECTOR and the value is the number of occurences of that key.
+
+We loop over the vector, add all key:value pairs to dictionary.
+We then create a loop that will run a max of k times.
+We Create a vector called keys to store highest keys.
+Within the above loop, we initilise an integer (highest) and an integer (highestKey) to the first value and key.
+We then loop over the dictionary, and check for any value > highest and if:
+                                                                            switch highest with value
+                                                                            switch highestKey with valueKey
+Once out of inner loop, add (highestKey) to keys vector.
+dictionary.erase(highestKey)
+This will ensure that when we loop again we do not select an already selected key.
+
+Once out of outer loop
+return keys;
+
+vector<int> topKFrequent(vector<int>& nums, int k)
+{
+    std::map<int,int> dictionary;
+
+    for (const auto& n: nums)
+        {
+            ++dictionary[n];
+        }
+
+    std::vector<int> keys;
+
+    for (int i=0;i<k;i++)
+        {
+            int highestKey = dictionary.begin()->first;
+            int highest = dictionary.begin()->second;
+            for (const auto& [k,v]: dictionary)
+                {
+                    if (v > highest)
+                        {
+                            highest = v;
+                            highestKey = k;
+                        }
+                }
+            keys.push_back(highestKey);
+            dictionary.erase(highestKey);
+        }
+    return keys;
+}
+

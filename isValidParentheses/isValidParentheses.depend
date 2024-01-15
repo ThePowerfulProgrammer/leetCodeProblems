@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1701435382 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\isvalidparentheses\main.cpp
+	<iostream>
+	<stack>
+	<unordered_map>
+	<vector>
+

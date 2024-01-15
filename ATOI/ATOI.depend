@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1693755588 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\atoi\main.cpp
+	<iostream>
+	<cmath>
+

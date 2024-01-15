@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1703514076 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\wordsearch\main.cpp
+	<iostream>
+	<vector>
+
