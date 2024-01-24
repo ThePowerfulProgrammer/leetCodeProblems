@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1705951368 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\minfallingpathsum\main.cpp
+	<iostream>
+	<vector>
+	<map>
+	<algorithm>
+
