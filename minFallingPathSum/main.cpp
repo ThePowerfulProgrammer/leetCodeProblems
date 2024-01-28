@@ -31,11 +31,102 @@ Program Design:
 
 */
 
-int findLowest(int prev,int current,int next)
+// sum all the entires in a 3d matrix
+int sum3DMatrix(vector<vector<int>> grid)
 {
+    int sum = 0;
+
+    for (int i=0;i<grid.size();i++)
+        {
+            for (int j=0;j<grid.size();j++)
+                {
+                    sum += grid[i][j];
+                }
+        }
+    return sum;
 
 }
 
+
+// returns [index,row[index]] row[index] is the lowest value
+vector<int> leftMidRight(vector<int> row ,int prev,int current,int next)
+{
+    vector<int> indexAndValue;
+    if (row[prev] <= row[current] && row[prev] <= row[next])
+        {
+            indexAndValue.push_back(prev); // column
+            indexAndValue.push_back(row[prev]); // value
+            // vector = {column,value}
+            return indexAndValue;
+        }
+    else if (row[current] <= row[prev] && row[current] <= row[next])
+        {
+            indexAndValue.push_back(current); // column
+            indexAndValue.push_back(row[current]); // value
+            // vector = {column,value}
+            return indexAndValue;
+        }
+
+    indexAndValue.push_back(next); // column
+    indexAndValue.push_back(row[next]); // value
+    // vector = {column,value}
+    return indexAndValue;
+
+}
+
+vector<int> midNext(vector<int> row, int current,int next)
+{
+    vector<int> indexAndValue;
+
+    if (row[current] <= row[next] )
+        {
+            indexAndValue.push_back(current); // column
+            indexAndValue.push_back(row[current]); // value
+            // vector = {column,value}
+            return indexAndValue;
+        }
+
+    indexAndValue.push_back(next); // column
+    indexAndValue.push_back(row[next]); // value
+    // vector = {column,value}
+    return indexAndValue;
+
+}
+
+vector<int> leftMid(vector<int> row, int prev,int current)
+{
+    vector<int> indexAndValue;
+
+    if (row[prev] <= row[current] )
+        {
+            indexAndValue.push_back(prev); // column
+            indexAndValue.push_back(row[prev]); // value
+            // vector = {column,value}
+            return indexAndValue;
+        }
+
+    indexAndValue.push_back(current); // column
+    indexAndValue.push_back(row[current]); // value
+    // vector = {column,value}
+    return indexAndValue;
+}
+
+/* algorithm
+vector<int> findLowest(vector<int> row)
+{
+    vector<int> indexAndValue;
+    // Find the iterator pointing to the lowest element in the vector
+    auto it = min_element(row.begin(), row.end());
+    // Get the index of the lowest element
+    int index = distance(row.begin(), it);
+    // Get the value of the lowest element
+    int value = *it;
+    // Push the index and value to the vector
+    indexAndValue.push_back(index); // column
+    indexAndValue.push_back(value); // value
+    // vector = {column,value}
+    return indexAndValue;
+}*/
 
 
 class Solution {
@@ -60,26 +151,72 @@ public:
                         column = i;
                     }
             }
-        table[0][column] = smallest; // I now set the first row in the table with the lowest value from the matrix, I also have the column i
 
+
+        table[0][column] = smallest; // I now set the first row in the table with the lowest value from the matrix, I also have the column i
+        cout << table[0][column] << endl;
+        cout << "column: " << column << endl;
         // 3) We now consinder all other rows in the matrix, we only consider cols such adhere to the requirements.
         for (int i=1;i<matrix.size();i++)
             {
                 for (int j=0;j<matrix.size();j++)
                     {
-                        if (column - 1 > -1) // bottom left
+                        if ( (column - 1 > -1) && (column + 1 < matrix.size()) ) // if there is pre and post there is a hypo
                             {
+                                // I need some function to process all 3 entires, find the lowest and return the lowest and it's column value
+                                vector<int> valueAndIndex = leftMidRight(matrix[i],column-1,column,column+1 );
 
+                                // I update column to the above column and add the lowest to my table
+                                column = valueAndIndex[0];
+                                cout << column << endl;
+                                cout << "value to be added: " << matrix[i][column] << endl;
+                                table[i][column] = matrix[i][column];
+
+                                // I then break out of the innermost loop and repeat the above for the next row
+                                break;
                             }
+                        else if ( (column - 1 > -1 )&& (column + 1 >= matrix.size()) ) // only a pre and hypo
+                            {
+                                // I need some function to process the prev col and current col
+                                vector<int> valueAndIndex = leftMid(matrix[i],column-1,column);
+
+                                // I update column and add lowest to my table
+                                column = valueAndIndex[0];
+                                cout <<  "value to be added: " << matrix[i][column] << endl;
+                                table[i][column] = matrix[i][column];
+
+                                // I then break out of the innermost loop and repeat the above for the next loop
+                                break;
+                            }
+                        else if ( (column + 1 < matrix.size()) && (column - 1 < 0 )) // only a hypo and post
+                            {
+                                // I need some function to process the current col and next col
+                                vector<int> valueAndIndex = midNext(matrix[i],column,column+1);
+
+                                // I update column and add lowest to my table
+                                column = valueAndIndex[0];
+                                cout << "value to be added: " << matrix[i][column] << endl;
+                                table[i][column] = matrix[i][column];
+
+                                // I then break out of the innermost loop and repeat the above for the next loop
+                                break;
+                            }
+                        cout << "inner loop: " << j << endl;
                     }
+                cout << "outer loop: " << i << endl;
             }
 
+        // 4) My table is now updated with values other than 0
+        // I now return the sum(matrix) -> I would have to traverse the entire table, but I notice that I am not really using the table
+        // I can create a regular vector and add values and return sum(vector)
 
-        return 0;
+
+        return sum3DMatrix(table);
     }
-private:
 
 };
+
+
 
 std::vector<std::vector<int>> test(int n) {
   std::vector<int> t(n, 0); // Creating a vector 't' of size 'n' filled with 'n'
@@ -91,8 +228,8 @@ int main()
 {
     int n;
     cout << "Input an integer value: ";
-    cin >> n; // Taking user input for the size of the matrix
-
+    //cin >> n; // Taking user input for the size of the matrix
+    n = 2;
     std::vector<std::vector<int>> result = test(n); // Calling the test function to create the 'n x n' matrix
     cout << "Create an n x n matrix by said integer:\n";
 
@@ -102,6 +239,58 @@ int main()
       printf("%d ", result[i][j]); // Printing each element of the matrix
     printf("\n"); // Moving to the next row after each inner loop completes
     }
+    cout << endl;
 
+    vector<int> example = {3,2,1};
+    vector<int> solution = midNext(example, 1,2);
+    cout << " Index: "<< solution[0] << " Value: " << solution[1] << endl;
+
+    vector<vector<int>> table = {
+        {1,2,3},
+        {2,2,2},
+        {1,1,1},
+    };
+
+    cout << sum3DMatrix(table) << endl;
+
+    cout << endl << endl << endl;
+    Solution s1;
+    vector<vector<int>> matrix = {
+        {2,1,3},
+        {6,5,4},
+        {7,8,9}
+        };
+    cout << s1.minFallingPathSum(matrix) << endl;
+
+    vector<vector<int>> case1 = {
+        {100,-42,-46,-41},
+        {31,97,10,-10},
+        {-58,-51,82,89},
+        {51,81,69,-51}
+        };
+
+
+    vector<int> row1 = case1[0];
+    int smallest = row1[0];
+    int column = 0;
+    cout << "size: " << row1.size() << endl;
+    for (int i=1;i<4;i++) {
+        if (row1[i] < smallest) {
+            smallest = row1[i];
+            column = i;
+        }
+    }
+
+    cout << "Samllest: " << smallest << " column: " << column << endl;
+
+    if (-41 < -46) {
+        cout << "WTF" << endl;
+    }
+
+    cout << s1.minFallingPathSum(case1) << endl;
+
+/*
+[[100,-42,-46,-41],[31,97,10,-10],[-58,-51,82,89],[51,81,69,-51]]
+*/
     return 0;
 }
