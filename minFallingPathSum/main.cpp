@@ -224,6 +224,27 @@ std::vector<std::vector<int>> test(int n) {
   return arr; // Returning the 'n x n' matrix
 }
 
+
+
+
+int minFallingPathSum(vector<vector<int>>& matrix)
+{
+    // 1) Create the table and seed the initial values of 0
+    vector<int> t(matrix.size(),0);
+    vector<vector<int>> table(matrix.size(),t);
+
+    int smallest = matrix[0][0];
+    int column = 0;
+
+
+}
+
+
+
+
+
+
+
 int main()
 {
     int n;
