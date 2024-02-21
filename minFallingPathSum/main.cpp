@@ -227,15 +227,29 @@ std::vector<std::vector<int>> test(int n) {
 
 
 
+// Simulate the behavior for a 2x2 matrix
+/*All I have to do is given a 2x2 matrix I must create a vector that contains the falling sum of all entries starting in the
+first row */
 int minFallingPathSum(vector<vector<int>>& matrix)
 {
-    // 1) Create the table and seed the initial values of 0
+    // 1) Create the table and seed the initial values of 0 IGNORE 1) for now
     vector<int> t(matrix.size(),0);
     vector<vector<int>> table(matrix.size(),t);
 
-    int smallest = matrix[0][0];
-    int column = 0;
+    // 2) Example matrix
+    /**
+        [
+        [1,2],
+        [3,4]
+        ]
+    */
 
+    // 3) Create the sums
+
+    for (int i = 1;i<matrix.size();i++)
+        { // iterate over rows
+
+        }
 
 }
 
