@@ -20,7 +20,12 @@ struct TreeNode {
 
 class Solution {
 public:
-    void printPaths(TreeNode* root, vector<int>& path) {
+    void hasPathSum(TreeNode* root, int targetSum) {
+        vector<int> path;
+        printPaths(root, path, targetSum);
+    }
+
+    void printPaths(TreeNode* root, vector<int>& path, int targetSum) {
         if (root == nullptr) {
             return;
         }
@@ -30,31 +35,35 @@ public:
 
         if (root->left == nullptr && root->right == nullptr) {
             // Leaf node: Print the path
-            printPath(path);
+            printPath(path,targetSum);
         } else {
             // Recurse on left and right subtrees
-            printPaths(root->left, path);
-            printPaths(root->right, path);
+            printPaths(root->left, path,targetSum);
+            printPaths(root->right, path, targetSum);
         }
 
         // Backtrack: Remove the last element from the path
         path.pop_back();
     }
 
-    void hasPathSum(TreeNode* root, int targetSum) {
-        vector<int> path;
-        printPaths(root, path);
-    }
+
 
 private:
-    void printPath(const vector<int>& path) {
-        for (int i = 0; i < path.size(); ++i) {
-            cout << path[i];
-            if (i < path.size() - 1) {
-                cout << " -> ";
-            }
+    void printPath(const vector<int>& path, int targetSum) {
+        for (const int &j: path) {
+            cout << j << "->";
         }
         cout << endl;
+
+        int sum = 0;
+        for (int i = 0; i < path.size(); ++i) {
+            sum += path[i];
+        }
+
+        if (sum == targetSum) {
+            cout << sum << endl;
+        }
+
     }
 };
 
@@ -70,6 +79,6 @@ int main()
     root->right->left = new TreeNode(2);
 
     Solution s1;
-    s1.hasPathSum(root,21);
+    s1.hasPathSum(root,23);
     return 0;
 }
