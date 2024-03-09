@@ -24,16 +24,38 @@ I need to Psuedo code it :^)
 
 */
 
- class Solution
- {
-public:
-    hasPathSum(TreeNode* root, int targetSum)
-    {
+class Solution{
+    public:
+        int hasPathSum(TreeNode* root, int targetSum)
+        {
+            TreeNode* newNode = root;
+            int rootToLeafSum = 0;
+
+            if (newNode == nullptr)
+                {
+                    return 0;
+                }
+            return createPath(newNode,rootToLeafSum);
+        }
+
+    private:
+        int createPath(TreeNode* root, int &initialValue )
+        {
+            initialValue += root->val;
+
+            if (root->left == nullptr && root->right == nullptr)
+                {
+                    cout << "process root-to-leaf path" << endl;
+                    return initialValue;
+                }
+            else
+                {
+                    return createPath(root->left,initialValue);
+                    return createPath(root->right,initialValue);
+                }
 
 
-    }
-
-private:
+        }
 
  };
 
@@ -53,6 +75,6 @@ int main()
     root->right->left = new TreeNode(2);
 
     Solution s1;
-    s1.hasPathSum(root,23);
+    cout << s1.hasPathSum(root,23);
     return 0;
 }
