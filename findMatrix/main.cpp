@@ -27,6 +27,20 @@ public:
 
 };
 
+
+bool vectorFind(vector<int> v, int i)
+{
+    // find i in v
+    for (int num: v)
+        {
+            if (num == i)
+                {
+                    return true;
+                }
+        }
+    return false;
+}
+
 int main()
 {
     cout << "Creating a matrix!" << endl;
@@ -53,5 +67,6 @@ int main()
         {
             cout << pair.first << ":" << pair.second << endl;
         }
+
     return 0;
 }
