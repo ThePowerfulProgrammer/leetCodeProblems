@@ -24,6 +24,43 @@ h)    return true
 
 */
 
+class Solution {
+public:
+    bool isPalindrome(string s)
+    {
+        // process 1
+        for (char c: s)
+            {
+                if (isalnum(c))
+                    {
+                        characterStack.push((char)tolower(c));
+                    }
+            }
+
+        // process 2
+        for (char c: s)
+            {
+                if (isalnum(c))
+                    {
+                        if ((char)tolower(c) != characterStack.top())
+                            {
+                                return false;
+                            }
+                        else
+                            {
+                                characterStack.pop();
+                            }
+                    }
+            }
+
+        return true;
+    }
+
+private:
+    stack<char> characterStack;
+};
+
+
 
 using namespace std;
 
@@ -31,16 +68,37 @@ int main()
 {
     cout << "IS the phrase a palindrome?!" << endl;
 
+    stack<char> characterStack;
     string testStr = "A man, a plan, a canal: Panama";
-    testStr.
+
 
     for (char c: testStr)
         {
             if (isalnum(static_cast<int>(c)))
                 {
-                    cout << c << " ";
+                    characterStack.push((char)tolower(c));
                 }
 
         }
+    cout << "Stack has been created" << endl;
+
+
+    // start process 2
+    for (char current: testStr)
+        {
+            if (isalnum(current))
+                {
+                    if ((char)tolower(current) != characterStack.top())
+                        {
+                            cout << "fail" << endl;
+                        }
+                    else
+                        {
+                            characterStack.pop();
+                        }
+                }
+        }
+
+    cout << "All good" << endl;
     return 0;
 }
