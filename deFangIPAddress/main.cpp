@@ -11,16 +11,14 @@ public:
             {
                 if (address[i] == '.')
                     {
-                        address[i] = '[';
-                        address.insert(i+1,"]");
-
+                        string replacement = "[.]";
+                        address.replace(i,1,replacement);
+                        i += 1;
                     }
             }
 
         return address;
     }
-
-
 };
 
 int main()
