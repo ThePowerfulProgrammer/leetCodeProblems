@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <map>
 using namespace std;
 
 class Solution {
@@ -9,10 +10,33 @@ public:
         vector<int>::iterator i;
         for (i = nums.begin(); i != nums.end(); ++i)
             {
-                cout << &(*i) << endl;
+                if (dict.find(*i) != dict.end())
+                    {
+
+                        dict[*i] += 1;
+                    }
+                else
+                    {
+                        dict[*i] = 1;
+                    }
             }
-        return 1;
+
+        int single = nums[0];
+
+
+        for (const auto& [key,value] : dict)
+            {
+                if (value < dict[single])
+                    {
+                        single = key;
+                    }
+            }
+
+        return single;
     }
+private:
+    map<int,int> dict;
+
 };
 
 int main()
@@ -28,11 +52,12 @@ int main()
 
     cout << x << endl;
     cout << y << endl;
+    cout << (x ^ y)  << endl;
     cout << z << endl;
 
-    vector<int> nums({1,2,2,3,3,4,5});
+    vector<int> nums({2,2,3,3,4,4,5,1,1});
 
     Solution s1;
-    s1.singleNumber(nums);
+    cout << s1.singleNumber(nums);
     return 0;
 }
