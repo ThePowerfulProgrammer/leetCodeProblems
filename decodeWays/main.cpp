@@ -14,6 +14,8 @@ using namespace std;
     S = 1 + 2 = 12
     S = 12
 
+    Can I use Tabulation
+
 */
 
 class Solution {
