@@ -15,6 +15,7 @@ using namespace std;
     S = 12
 
     Can I use Tabulation
+    11
 
 */
 
