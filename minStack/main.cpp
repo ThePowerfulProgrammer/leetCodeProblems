@@ -40,8 +40,18 @@ public:
     // remove top of stack
     void pop()
     {
-        int key = list[stackTop];
+        int key = list[stackTop-1];
         MAP[key]--;
+        if (MAP[key] == 0) // cannot be considered the minimum;
+            {
+                MAP.erase(key);
+                if (!MAP.empty())
+                    {
+                        minimum = MAP[0];
+                        map<int,int>::iterator mapIterator = MAP.begin();
+                        minimum = mapIterator->first;
+                    }
+            }
         stackTop -=1;
     }
 
@@ -90,17 +100,19 @@ int main()
     cout << "Create a MinStack!" << endl;
 
     MinStack *minStack = new MinStack();
-    minStack->push(-2);
     minStack->push(0);
-    minStack->push(-3);
-    minStack->push(-3);
     minStack->push(-2);
-    minStack->push(-2);
+    minStack->push(-1);
+    minStack->push(-3);
 
+    cout << minStack->getMin() << endl;
+    cout << minStack->top() << endl;
+    minStack->pop(); // removes -3
 
+    cout << minStack->getMin() << endl;
     cout << minStack->top() << endl;
 
-    minStack->mapOutput();
-
+// ["MinStack","push","push","push","push","getMin","pop","getMin","pop","getMin","pop","getMin"]
+// [[],[2],[0],[3],[0],[],[],[],[],[],[],[]]
     return 0;
 }

@@ -1,4 +1,5 @@
 # depslib dependency file v1.0
-1714161337 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\minstack\main.cpp
+1714240305 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\minstack\main.cpp
 	<iostream>
+	<map>
 
