@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <map>
 using namespace std;
 
 // I assumed this is a stack of integers
@@ -21,6 +21,18 @@ public:
             {
                 minimum = val;
             }
+
+        if (MAP.find(val) == MAP.end())
+            {
+                MAP[val] = 1;
+            }
+        else
+            {
+                int increment = MAP[val];
+                increment ++;
+                MAP[val] = increment;
+            }
+
         list[stackTop] = val;
         stackTop++;
     }
@@ -28,6 +40,8 @@ public:
     // remove top of stack
     void pop()
     {
+        int key = list[stackTop];
+        MAP[key]--;
         stackTop -=1;
     }
 
@@ -43,6 +57,15 @@ public:
         return minimum;
     }
 
+    void mapOutput()
+    {
+        map<int,int>::iterator mapIterator;
+        for (mapIterator = MAP.begin(); mapIterator != MAP.end(); ++mapIterator)
+            {
+                cout << " Key: "<< mapIterator->first << " value: " << mapIterator->second << endl;
+            }
+    }
+
 private:
     // to implement a stack we need to store data
 
@@ -50,6 +73,7 @@ private:
     int minimum; // min value of the stack
     int stackTop; // the position of the top of stack
     int maxStackSize;
+    map<int,int> MAP;
 };
 
 /**
@@ -69,8 +93,14 @@ int main()
     minStack->push(-2);
     minStack->push(0);
     minStack->push(-3);
+    minStack->push(-3);
+    minStack->push(-2);
+    minStack->push(-2);
 
-    cout << minStack->top();
+
+    cout << minStack->top() << endl;
+
+    minStack->mapOutput();
 
     return 0;
 }
