@@ -6,27 +6,29 @@ class Solution {
 public:
     bool isHappy(int n)
     {
-        // create the initial sum
-        while (n > 0)
+        while (n!=1)
             {
-                digit += (n%10)*(n%10);
-                n /=10;
-            }
-        cout << digit << endl;
-
-        int tempSum = digit;
-        while (tempSum > 0)
-            {
-                while (digit > 0)
+                int sum = 0;
+                while (n > 0)
                     {
+                        int value = n%10;
+                        sum += value*value;
+                        cout << "sum: " << sum << endl;
+                        n /=10;
 
+                        loops += 1;
+                        if (loops == 10)
+                            {
+                                return false;
+                            }
                     }
+                n = sum;
             }
-       return true;
+        return n == 1;
     }
 
 private:
-    int digit = 0;
+    int loops = 0;
 };
 
 int main()
@@ -34,6 +36,6 @@ int main()
     cout << "is n Happy!" << endl;
 
     Solution s1;
-    s1.isHappy(19);
+    cout << s1.isHappy(8);
     return 0;
 }
