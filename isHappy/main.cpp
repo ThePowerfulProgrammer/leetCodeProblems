@@ -1,4 +1,5 @@
 #include <iostream>
+#include <set>
 
 using namespace std;
 
@@ -13,29 +14,27 @@ public:
                     {
                         int value = n%10;
                         sum += value*value;
-                        cout << "sum: " << sum << endl;
                         n /=10;
-
-                        loops += 1;
-                        if (loops == 10)
-                            {
-                                return false;
-                            }
                     }
                 n = sum;
+                if (values.find(n) != values.end())
+                    {
+                        return false;
+                    }
+                values.insert(n);
             }
         return n == 1;
     }
 
 private:
-    int loops = 0;
+    set<int> values;
 };
 
 int main()
 {
     cout << "is n Happy!" << endl;
-
+    cout << "2 % 10 " << 2 % 10 << endl;
     Solution s1;
-    cout << s1.isHappy(8);
+    cout << s1.isHappy(4);
     return 0;
 }
