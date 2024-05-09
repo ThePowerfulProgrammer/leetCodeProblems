@@ -30,6 +30,8 @@ int partition(int n, int m)
     return 0;
 }
 
+
+
 int main()
 {
     cout << "Partition n objects in m different ways!" << endl;

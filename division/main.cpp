@@ -21,20 +21,36 @@ divident/divisor = quotient
 
 int simpleDivison(int divident, int divisor)
 {
+    //
+    int count = 0;
+    int quotient = 0;
+    while (divident > divisor)
+    {
+        while (divident - divisor > 0)
+            {
+                divident -= divisor;
+                count += 1;
+            }
+        quotient = count;
+        int subtractionValue = divisor * count;
+        divident -= subtractionValue;
+    }
 
+    return quotient;
 }
 
 class Solution {
 public:
     int divide(int dividend, int divisor)
     {
-
+        return 0;
     }
 };
 
 int main()
 {
     cout << "Recreate / " << endl;
-    int x = 6;
+
+    cout << simpleDivison(57,6) << endl;
     return 0;
 }
