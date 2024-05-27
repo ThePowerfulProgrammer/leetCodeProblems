@@ -1,4 +1,12 @@
 # depslib dependency file v1.0
-1716386081 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\linkedlisttype\main.cpp
+1716491570 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\linkedlisttype\main.cpp
+	<iostream>
+	"linkedListIterator.h"
+	"linkedListType.h"
+
+1716491557 c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\linkedlisttype\include\linkedlistiterator.h
+
+1716492163 c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\linkedlisttype\include\linkedlisttype.h
+	"linkedListIterator.h"
 	<iostream>
 
