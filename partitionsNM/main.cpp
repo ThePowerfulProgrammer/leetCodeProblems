@@ -14,20 +14,15 @@ using namespace std;
 
 int partition(int n, int m)
 {
-    if (n==0 || m == 0)
-        {
-            return 0;
-        }
-    if (n == 1 && m == 1)
+    if (n == 0)
         {
             return 1;
         }
-
-
-
-
-
-    return 0;
+    else if ( n < 0 || m == 0)
+        {
+            return 0;
+        }
+    return partition(n-m,m) + partition(n,m-1);
 }
 
 
@@ -35,5 +30,15 @@ int partition(int n, int m)
 int main()
 {
     cout << "Partition n objects in m different ways!" << endl;
+    cout << partition(1,1) << endl;
+    cout << partition(1,2) << endl;
+    cout << partition(1,3) << endl;
+    cout << partition(2,2) << endl;
+    cout << partition(3,2) << endl;
+    cout << partition(2,3) << endl;
+    cout << partition(3,3) << endl;
+    cout << partition(5,5) << endl;
+
+
     return 0;
 }
