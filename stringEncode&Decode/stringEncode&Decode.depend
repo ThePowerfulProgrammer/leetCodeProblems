@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1723888416 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\stringencode&decode\main.cpp
+	<iostream>
+	<vector>
+	<random>
+
