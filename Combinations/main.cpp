@@ -119,8 +119,8 @@ void printTable(vector<vector<int>> t)
 int main()
 {
     Solution s1;
-    cout << "Combinations(4,2)!: " << endl;
-    for (auto v: s1.combine(4,2))
+    cout << "Combinations(2,2)!: " << endl;
+    for (auto v: s1.combine(4,3))
         {
             for (auto i: v)
                 {
