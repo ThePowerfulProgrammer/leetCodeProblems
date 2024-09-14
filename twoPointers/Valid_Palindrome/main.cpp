@@ -1,13 +1,33 @@
 #include <iostream>
 #include <vector>
+#include <cctype>
 
 using namespace std;
 
 class Solution {
 public:
+    /**
+        Input: s = "Was it a car or a cat I saw?"
+        Output: true
+
+        Approach: 2 pointers
+        pointerStart = s.begin()
+        pointerEnd = s.end()
+
+        if pointerstart  == pointerend:
+            pointerstart forward
+            pointerend backward
+        else:
+            return false
+
+
+    */
     bool isPalindrome(string s)
     {
+        int pointerOne = 0;
+        int pointerTwo = s.size()-1;
 
+        return true;
     }
 
 
@@ -57,5 +77,8 @@ public:
 int main()
 {
     cout << "Hello world!" << endl;
+    string s = "Was it a car or a cat I saw?";
+    Solution s1;
+    s1.isPalindrome(s);
     return 0;
 }
