@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cctype>
+#include <algorithm>
 
 using namespace std;
 
@@ -26,6 +27,42 @@ public:
     {
         int pointerOne = 0;
         int pointerTwo = s.size()-1;
+        std::transform(s.begin(), s.end(), s.begin(),
+                       [](unsigned char c){return std::tolower(c);});
+
+        cout << s << endl;
+
+        while (pointerOne < pointerTwo)
+            {
+                if (s[pointerOne] == s[pointerTwo])
+                    {
+                        // success
+                        pointerOne += 1;
+                        pointerTwo -= 1;
+                    }
+                else if (s[pointerOne] != s[pointerTwo] )
+                    {
+                        // Not equal but why?
+
+                        if ((s[pointerOne] != s[pointerTwo])     && (isalnum(s[pointerOne] == 0 && isalnum(s[pointerTwo]) == 0))  )
+                            {
+                                pointerOne += 1;
+                                pointerTwo -=1;
+                            }
+                        else if (isalnum(s[pointerOne]) == 0 )
+                            {
+                                pointerOne +=1;
+                            }
+                        else if (isalnum(s[pointerTwo]) == 0 )
+                            {
+                                pointerTwo -=1;
+                            }
+                        else if (s[pointerOne] != s[pointerTwo])
+                            {
+                                return false;
+                            }
+                    }
+            }
 
         return true;
     }
@@ -77,8 +114,16 @@ public:
 int main()
 {
     cout << "Hello world!" << endl;
-    string s = "Was it a car or a cat I saw?";
+    string s = "ABA";
     Solution s1;
-    s1.isPalindrome(s);
+    cout << s1.isPalindrome(s) << "\n";
+    if ('w' == 'W')
+        {
+            cout << "Character Capatalisation does not count" << endl;
+        }
+    else
+        {
+            cout << "Yes, it doees \n";
+        }
     return 0;
 }

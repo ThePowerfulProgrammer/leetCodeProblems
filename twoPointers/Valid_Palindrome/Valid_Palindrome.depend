@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1726385872 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\twopointers\valid_palindrome\main.cpp
+	<iostream>
+	<vector>
+	<cctype>
+
