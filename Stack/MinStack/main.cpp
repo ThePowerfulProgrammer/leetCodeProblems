@@ -1,25 +1,23 @@
 #include <iostream>
 #include <climits>
+#include <stack>
 
 using namespace std;
 
 struct Node {
     int data;
     Node *first; // pointer to the firstNode in the linkedList
-    Node *last; // pointer to the last node in the linkedList == top of the stack
 
     Node()
     {
         data = 0;
         first = nullptr;
-        last = nullptr;
     }
 
     Node(int val)
     {
         data = val;
         first = nullptr;
-        last = nullptr;
     }
 };
 
@@ -28,8 +26,6 @@ struct Node {
 class MinStack {
 public:
     MinStack() :
-        count(0),
-        minimum(INT_MAX),
         head(nullptr), // list is initially empty
         tail(nullptr)
     {
@@ -41,24 +37,25 @@ public:
         if (head == nullptr) // adding a newnode means that node must be the first node
             {
                 Node* newNode = new Node(val);
-                if (val < minimum)
-                    {
-                        minimum = val;
-                    }
+
+
+                minimumStack.push(val);
+
 
                 head = newNode;
                 tail = head;
-                cout << "added first node " << head->data <<  endl;
-                cout << "added first node tail: " << tail->data <<  endl;
+                //cout << "added first node " << head->data <<  endl;
+                //cout << "added first node tail: " << tail->data <<  endl;
 
             }
         else
             {
                 Node *newNode = new Node(val);
 
-                if (val < minimum)
+                if (val < minimumStack.top() )
                     {
-                        minimum = val;
+                        cout << "pushed: " << val << endl;
+                        minimumStack.push(val);
                     }
 
                 // traverse linked list to find last node
@@ -71,7 +68,7 @@ public:
                 temp->last = newNode;
                 tail = newNode;*/
 
-                tail->last = newNode;
+                tail->first = newNode;
                 tail = newNode;
 
             }
@@ -85,18 +82,35 @@ public:
                     {
                         Node *tempNode = new Node();
                         tempNode = head;
-                        while (tempNode->last->last != nullptr)
+                        while (tempNode->first->first != nullptr)
                             {
-                                tempNode = tempNode->last;
+                                tempNode = tempNode->first;
                             }
+
                         tail = tempNode;
-                        tempNode = tempNode->last;
+
+                        //cout << "temp->data before moving forward: " << tempNode->data << endl;
+                        tempNode = tempNode->first;
+                        //cout << "temp->data after moving forward: " << tempNode->data << endl;
+
+                        if ( tempNode->data == getMin())
+                            {
+                                //cout << "tempnode->data: " << tempNode->data << " getMin() " << getMin() << endl;
+                                minimumStack.pop();
+
+                            }
+
                         delete tempNode;
                         tempNode = nullptr;
+
+                        tail->first = nullptr;
+
                     }
                 else
                     {
                         cout << "head  == tail \n";
+
+                        minimumStack.pop();
                         delete head;
                         head = nullptr;
                     }
@@ -112,7 +126,7 @@ public:
     {
         if (head)
             {
-                cout << "Runnin \n";
+                //cout << "Runnin \n";
                 return tail->data;
             }
         return 0;
@@ -121,34 +135,34 @@ public:
 
     int getMin()
     {
-        return minimum;
+        return minimumStack.top();
     }
 
 private:
-    int count;
-    int minimum;
     Node *head;
     Node *tail;
-
+    std::stack<int> minimumStack;
 };
 
 
 int main()
 {
     cout << "Design a stack class that supports push,pop, top and getMin operations!" << endl;
-
+    cout << "5->0->2->4" << endl ;
     MinStack mystack;
-    mystack.push(1);
-    mystack.push(3);
-    mystack.push(2);
-    mystack.push(-1);
+    mystack.push(5);
     mystack.push(0);
-
-    mystack.pop();
-
-
-    cout << mystack.top() << endl;
+    mystack.push(2);
+    mystack.push(4);
     cout << mystack.getMin() << endl;
+    mystack.pop(); // needs to consider popping the node with the current minimum value
+    cout << mystack.getMin() << endl;
+    mystack.pop();
+    cout << mystack.getMin() << endl;
+
+    mystack.push(-1);
+    cout << mystack.getMin() << endl;
+    cout << mystack.top() << endl;
     return 0;
 }
 
