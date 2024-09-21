@@ -52,7 +52,7 @@ public:
             {
                 Node *newNode = new Node(val);
 
-                if (val < minimumStack.top() )
+                if (val <= minimumStack.top() )
                     {
                         cout << "pushed: " << val << endl;
                         minimumStack.push(val);
