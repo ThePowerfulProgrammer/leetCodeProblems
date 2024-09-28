@@ -81,12 +81,17 @@ class Solution {
 public:
     TreeNode* invertTree(TreeNode* root)
     {
-        TreeNode *tempLeft = root->left;
-        TreeNode *tempRight = root->right;
+        if (root != nullptr)
+            {
+                TreeNode *tempLeft = root->left;
+                TreeNode *tempRight = root->right;
 
+                root->left = tempRight;
+                root->right = tempLeft;
 
-        root->right = tempLeft;
-        root->left = tempRight;
+                invertTree(root->left);
+                invertTree(root->right);
+            }
 
         return root;
     }
