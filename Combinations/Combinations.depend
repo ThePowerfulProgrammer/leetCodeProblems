@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1722969641 source:c:\users\ashis\onedrive\desktop\c++\leetcodeproblems\combinations\main.cpp
+	<iostream>
+	<vector>
+	<algorithm>
+	<unordered_map>
+
