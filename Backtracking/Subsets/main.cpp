@@ -30,33 +30,31 @@ class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums)
     {
-        vector<vector<int>> subset;
+        // Choice -> Constraints -> Goal
+        dfsAdd(nums,0);
+        return res;
+    }
 
-        subset.push_back({});
-        vector<int>::iterator numsStart;
-        vector<int>::iterator numsEnd;
-        numsEnd = nums.end();
+private:
+    vector<vector<int>> res; // 3d solution
+    vector<int> subset;
 
-        for (int i=0;i<nums.size(); i++)
+
+    void dfsAdd(vector<int>&nums,int index)
+    {
+        if (index == nums.size())
             {
-                numsStart = nums.begin() + i;
-                vector<int> tempSet(numsStart, numsEnd);
-                vector<int> tempSetBackwards;
-
-
-                for (int j=i+1;j<nums.size(); j++)
-                    {
-                        subset.push_back(tempSet);
-                        tempSet.pop_back();
-
-                    }
-                subset.push_back(tempSet);
-
+                res.push_back(subset);
+                return;
             }
 
+        subset.push_back(nums[index]);
+        dfsAdd(nums, index+1);
 
-        return subset;
+        subset.pop_back();
+        dfsAdd(nums,index+1);
     }
+
 };
 
 
