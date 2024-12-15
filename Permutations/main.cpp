@@ -23,62 +23,51 @@ class Solution {
 public:
     vector<vector<int>> permute(vector<int>& nums)
     {
-        return permunateAdd(nums); // vector of vectors
-    }
-
-private:
-    vector<vector<int>> solutionMatrix;
-    vector<int> solutionRow;
-    vector<vector<int>> finalMatrix;
-
-    vector<vector<int>> permunateAdd(vector<int> &v)
-    {
         // base cases
-        if (v.size() == 0)
+        if (nums.size() == 0)
             {
-                return {};
-
+                return {}; // an empty vector
             }
-        else if (v.size() == 1)
+        else if (nums.size() == 1)
             {
-                return {v};
+                return { {nums[0]} };
             }
-        else if (v.size() == 2)
+        else if (nums.size() == 2)
             {
-                /*
-                    permutate({a,b}) = {{a,b}, {b,a}}
-                */
-                solutionMatrix = {{v[0], v[1]}, {v[1], v[0]} };
-                return solutionMatrix;
+              return { {nums[0], nums[1]}, {nums[1], nums[0]} };
             }
         else
             {
-                // backtrack case
-                cout << "backtrack time" << endl;
-                for (int i=0;i<v.size();i++)
+                // recursive cases
+                // asusume we have  <1,2,3> as nums
+                for (int i=0;i<nums.size();i++)
                     {
-                        vector<int> tempVec = {v[i]};
+                        vector<int> currentValue = {nums[i]}; // grab a value and reduce size of next vector
                         vector<int> remainingValues;
-                        copy_if(v.begin(), v.end(),std::back_inserter(remainingValues),
-                                [&tempVec](int j){return j != tempVec[0]; } ); // {2,3.4}
+                        copy_if(nums.begin(), nums.end(), std::back_inserter(remainingValues),
+                                [&currentValue](int j){return j != currentValue[0]; } ); // creates a vector of size n-1 consisting of all values besides nums[i]
 
-                        vector<vector<int>> tempMat = permunateAdd(remainingValues); // {{2,3},{3,2}}
-                        for (auto vec: tempMat)
+                        vector<vector<int>> solutionVectorOne = permute(currentValue); // { {1} }
+                        vector<vector<int>> solutionVectorTwo =  permute(remainingValues); // { {2,3}, {3,2} }
+
+                        for (auto subVec: solutionVectorTwo)
                             {
-                                vec.push_back(tempVec[0]);
-
-                                finalMatrix.push_back(vec);
+                                subVec.push_back(solutionVectorOne[0][0]); // { {2,3,1}, {3,2,1}  }
+                                subSolutionMatrix.push_back(subVec);
                             }
+
+                        solutionMatrix.insert(solutionMatrix.end(), subSolutionMatrix.begin(), subSolutionMatrix.end());
+                        subSolutionMatrix.clear();
 
                     }
             }
 
-            solutionMatrix = finalMatrix;
-            finalMatrix.clear();
-            return solutionMatrix;
-
-
+        return solutionMatrix;
     }
+
+private:
+    vector<vector<int>> subSolutionMatrix = {};
+    vector<vector<int>> solutionMatrix;
 
 
 };
@@ -99,9 +88,9 @@ int main()
     vector<int> v1 = {1};
     vector<int> v2 = {2,3};
 
-    printVector(v1);
+    //printVector(v1);
     cout << endl;
-    printVector(v2);
+    //printVector(v2);
     cout << endl;
 
     vector<int> v3 = v1;
@@ -110,15 +99,13 @@ int main()
 
     v3.insert(std::next(v3.begin(),1), it, endIt);
 
-    printVector(v3);
+ //    printVector(v3);
 
     cout << endl << endl << endl;
 
     Solution s1;
 
-
-    vector<int> v4 = {1,2,3,4};
-
+    vector<int> v4 = {1,2,3,4}; // permutations should result in a matrix of size 4! = 4 * 3 * 2 * 1 = 24
 
     for (auto v: s1.permute(v4))
         {
