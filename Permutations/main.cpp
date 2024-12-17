@@ -26,48 +26,31 @@ public:
         // base cases
         if (nums.size() == 0)
             {
-                return {}; // an empty vector
+                return {nums};
             }
-        else if (nums.size() == 1)
+
+        // recursive backtracking call
+        vector<int> temp = vector<int>(nums.begin() + 1, nums.end());
+        vector<vector<int>> permutations = permute(temp); // will run until we create temp to be {  }
+
+        vector<vector<int>> res;
+
+        for (const auto &p: permutations) // grab indiviual row vectors
             {
-                return { {nums[0]} };
-            }
-        else if (nums.size() == 2)
-            {
-              return { {nums[0], nums[1]}, {nums[1], nums[0]} };
-            }
-        else
-            {
-                // recursive cases
-                // asusume we have  <1,2,3> as nums
-                for (int i=0;i<nums.size();i++)
+
+                for (int i=0; i<=p.size(); i++)
                     {
-                        vector<int> currentValue = {nums[i]}; // grab a value and reduce size of next vector
-                        vector<int> remainingValues;
-                        copy_if(nums.begin(), nums.end(), std::back_inserter(remainingValues),
-                                [&currentValue](int j){return j != currentValue[0]; } ); // creates a vector of size n-1 consisting of all values besides nums[i]
-
-                        vector<vector<int>> solutionVectorOne = permute(currentValue); // { {1} }
-                        vector<vector<int>> solutionVectorTwo =  permute(remainingValues); // { {2,3}, {3,2} }
-
-                        for (auto subVec: solutionVectorTwo)
-                            {
-                                subVec.push_back(solutionVectorOne[0][0]); // { {2,3,1}, {3,2,1}  }
-                                subSolutionMatrix.push_back(subVec);
-                            }
-
-                        solutionMatrix.insert(solutionMatrix.end(), subSolutionMatrix.begin(), subSolutionMatrix.end());
-                        subSolutionMatrix.clear();
-
+                        vector<int> p_copy = p; // create copy of row vector as we intend to alter it
+                        p_copy.insert(p_copy.begin() + i, nums[0]);
+                        res.push_back(p_copy);
                     }
             }
 
-        return solutionMatrix;
+        return res;
+
     }
 
 private:
-    vector<vector<int>> subSolutionMatrix = {};
-    vector<vector<int>> solutionMatrix;
 
 
 };
@@ -107,7 +90,7 @@ int main()
 
     vector<int> v4 = {1,2,3,4}; // permutations should result in a matrix of size 4! = 4 * 3 * 2 * 1 = 24
 
-    for (auto v: s1.permute(v4))
+    for (auto v: s1.permute(v3))
         {
             printVector(v);
             cout << "\n";
