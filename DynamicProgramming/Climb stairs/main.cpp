@@ -25,6 +25,13 @@ Assume we are given 2 steps:
 
 class Solution {
 public:
+    Solution()
+    {
+        costToClimbStairMaps[0] = 0;
+        costToClimbStairMaps[1] = 1;
+        costToClimbStairMaps[2] = 2;
+    }
+
     int climbStairs(int n)
     {
         if (n == 1)
@@ -40,27 +47,48 @@ public:
         return climbStairs(n - 1) + climbStairs(n - 2);
     }
 
+    int climbStairsMemoisationApproach(int n)
+    {
+
+        if (costToClimbStairMaps.find(n) != costToClimbStairMaps.end())
+            {
+                return costToClimbStairMaps[n];
+            }
+        else
+            {
+                costToClimbStairMaps[n] = costToClimbStairMaps[n - 2] + costToClimbStairMaps[n - 1];
+                return costToClimbStairMaps[n];
+            }
+    }
 private:
+    map<long, long> costToClimbStairMaps;
+
 
 };
 
 
 int main()
 {
-    time_t timeStampCurrent;
-    time(&timeStampCurrent);
-    cout << "Current Time: " <<ctime(&timeStampCurrent) << "\n";
     cout << "Climbing stairs while DP!" << endl;
 
-    Solution s1;
-    cout << s1.climbStairs(1) << endl;
-    cout << s1.climbStairs(2) << endl;
-    cout << s1.climbStairs(3) << endl;
-    cout << s1.climbStairs(4) << endl;
-    cout << s1.climbStairs(5) << endl;
-    cout << s1.climbStairs(6) << endl;
+    // the dp approach
+    Solution s;
+    for (int i=1;i<45;i++)
+        {
+            cout << "n = " << i << " " << s.climbStairsMemoisationApproach(i) << endl;
+        }
+    // execution time : 0.076 s  for n == 30
+    // execution time : 0.099 s for n == 45
 
-    cout <<
+/*
+    Solution s1;
+
+    for (int i=1;i<50;i++)
+        {
+            cout << s1.climbStairs(i) << endl;
+        }*/
+    // execution time : 0.094 s for n == 30
+    // execution time : for n == 50 caused the program to run slow
 
     return 0;
 }
